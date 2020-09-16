@@ -1,0 +1,22 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t max-kuzmenko/docker-frontend -f Dockerfile.test  .
+
+script:
+  - docker run max-kuzmenko/docker-frontend
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-frontend"
+  env: "DockerFrontend-env"
+  bucket_name: "elasticbeanstalk-us-east-2-144940371936"
+  bucket_path: "docker-frontend"
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
+  on:
+    branch: master
