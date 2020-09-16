@@ -3,7 +3,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t user/docker-frontend .
+  - docker build -t max-kuzmenko/docker-frontend -f Dockerfile.test  .
 
 script:
-  - docker run user/docker-frontend npm run test -- --coverage
+  - docker run max-kuzmenko/docker-frontend
